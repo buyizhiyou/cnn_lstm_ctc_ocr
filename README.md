@@ -1,24 +1,9 @@
-# Overview
 
-This collection demonstrates how to construct and train a deep,
-bidirectional stacked LSTM using a CNN features as input with CTC loss
-to perform robust word recognition. The model is a straightforward
-adaptation of Shi et al.'s CRNN architecture
-([arXiv:1507.0571](https://arxiv.org/abs/1507.05717)). The provided code
-downloads and trains using Jaderberg et al.'s synthetic data ([IJCV
-2016](http://dx.doi.org/10.1007/s11263-015-0823-z)).
 
 Developed for Tensorflow 1.1
 
-
 # Structure
 
-The model as build is a hybrid of Shi et al.'s CRNN architecture
-(arXiv:1507.0571) and the VGG deep convnet, which reduces the number
-of parameters by stacking pairs of small 3x3 kernels. In addition, the
-pooling is also limited in the horizontal direction to preserve
-resolution for character recognition. There must be at least one
-horizontal element per character.
 
 Assuming one starts with a 32x32 image, the dimensions at each level
 of filtering are as follows:
@@ -44,9 +29,6 @@ of filtering are as follows:
 To accelerate training, a batch normalization layer is included before
 each pooling layer and ReLU non-linearities are used throughout. Other
 model details should be easily identifiable in the code.
-
-The default training mechanism uses the ADAM optimizer with learning
-rate decay.
 
 # Training
 
@@ -77,16 +59,6 @@ With the full training data, by one million iterations the model
 typically converges to around 7% training character error and 35% word
 error, both varying by 2-5%.
 
-# Testing
 
-The test script streams statistics for small batches of validation (or
-test) data. It ouputs the label error (percentage of characters
-predicted incorrectly), the test loss, and the sequence error
-(percentage of words--entire sequences--predicted incorrectly.)
 
-# Configuration
 
-There are many command-line options to configure training
-parameters. Run `train.py` or `test.py` with the `--help` flag to see
-them or inspect the scripts. Model parameters are not command-line
-configurable and need to be edited in the code (see `model.py`).
